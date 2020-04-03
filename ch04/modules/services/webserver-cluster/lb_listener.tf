@@ -1,0 +1,16 @@
+resource "aws_lb_listener" "http" {
+  load_balancer_arn      = aws_lb.jurassic.arn
+  port                   = local.http_port
+  protocol               = "HTTP"
+
+  # By default, return 404
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "404: page not found"
+      status_code  = 404
+    }
+  }
+}
